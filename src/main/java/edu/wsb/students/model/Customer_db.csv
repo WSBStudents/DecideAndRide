@@ -1,0 +1,6 @@
+id;name;document_id;document_expiration_date;driving_licnce_id;driving_licence_expiration_date;birth_date;adress;phone_number;
+1;Jan Kolwaski;ABC123456;2030-01-10;23456/20/1234;2035-01-02;2000-09-01;ul. Kolorowa 15/54 00-125 Warszawa;+48555072634;
+2;Janina Wesoła;DEF036176;2025-11-11;25643/07/1567;null;1970-05-12;l. Wrocławska 1/164 05-105 Warszawa;+48555987125;
+3;Sebastian Rogowski;ZDA4512330;2028-09-10;73656/17/2234;2037-05-19;1995-01-01;ul. Projektu 32 04-332 Warszawa;+48765348989;
+4;Bartosz Strzemieczny;ABC167654;2021-04-10;23236/15/5634;null;1990-09-22;ul. Zaliczenia 99/1 99-135 Wrocław;+48555072634;
+5;Agnieszka Skrzeczkowska;BHU456001;2034-12-07;25672/19/1994;2029-01-31;1986-02-15;ul. Zwycięstwa 1 00-125 Katowice;+48546777882;

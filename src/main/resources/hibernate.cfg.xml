@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:postgresql://dumbo.db.elephantsql.com/hxsbotdk</property>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.username">hxsbotdk</property>
+        <property name="connection.password">JIQejLrCaEtE99u4Q8GvWSWI7XTnXc3u</property>
+
+        <property name="dialect">org.hibernate.dialect.PostgreSQL94Dialect</property>
+        <property name="hbm2ddl.auto">update</property>
+
+        <!-- Mapping files -->
+        <mapping class="edu.wsb.students.model.Car"/>
+        <mapping class="edu.wsb.students.model.Customer"/>
+        <mapping class="edu.wsb.students.model.Order"/>
+
+    </session-factory>
+</hibernate-configuration>

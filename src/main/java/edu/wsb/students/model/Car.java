@@ -1,12 +1,16 @@
 package edu.wsb.students.model;
 
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.Currency;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "Car")
+@Table(name = "cars")
 public class Car {
 
     @Id
@@ -20,32 +24,49 @@ public class Car {
     @Column(name = "model")
     private String model;
 
-    @Column(name = "hp")
-    private int hp;
+    @Column(name = "horse_power")
+    private int horsePower;
 
-    @Column(name = "engineCapacity")
+    @Column(name = "engine_capacity")
     private String engineCapacity;
 
-    @Column(name = "prodYear")
-    private int prodYear;
+    @Column(name = "production_year")
+    private int productionYear;
 
-    @Column(name = "VIN")
-    private String VIN;
+    @Column(name = "vinNumber")
+    private String vinNumber;
 
-    @Column(name = "insuranceDate")
-    private LocalDateTime insuraceDate;
+    @Column(name = "insurance_date")
+    private LocalDate insuranceDate;
 
-    @Column(name = "technicalInspection")
-    private String technicalInspection;
+    @Column(name = "technical_inspection_date")
+    private LocalDate technicalInspectionDate;
 
-    @Column(name = "priceDay")
-    private Currency priceDay;
-
-    @Column(name = "priceMonth")
-    private Currency priceMonth;
+    @Column(name = "daily_payment")
+    private BigDecimal dailyPayment;
 
     @Column(name = "rate")
     private String rate;
+
+    public Car() {
+    }
+
+    public Car(String brand, String model, int horsePower,
+               String engineCapacity, int productionYear,
+               String vinNumber, LocalDate insuranceDate,
+               LocalDate technicalInspectionDate, BigDecimal dailyPayment,
+               String rate) {
+        this.brand = brand;
+        this.model = model;
+        this.horsePower = horsePower;
+        this.engineCapacity = engineCapacity;
+        this.productionYear = productionYear;
+        this.vinNumber = vinNumber;
+        this.insuranceDate = insuranceDate;
+        this.technicalInspectionDate = technicalInspectionDate;
+        this.dailyPayment = dailyPayment;
+        this.rate = rate;
+    }
 
     public int getId() {
         return id;
@@ -71,12 +92,12 @@ public class Car {
         this.model = model;
     }
 
-    public int getHp() {
-        return hp;
+    public int getHorsePower() {
+        return horsePower;
     }
 
-    public void setHp(int hp) {
-        this.hp = hp;
+    public void setHorsePower(int horsePower) {
+        this.horsePower = horsePower;
     }
 
     public String getEngineCapacity() {
@@ -87,52 +108,44 @@ public class Car {
         this.engineCapacity = engineCapacity;
     }
 
-    public int getProdYear() {
-        return prodYear;
+    public int getProductionYear() {
+        return productionYear;
     }
 
-    public void setProdYear(int prodYear) {
-        this.prodYear = prodYear;
+    public void setProductionYear(int productionYear) {
+        this.productionYear = productionYear;
     }
 
-    public String getVIN() {
-        return VIN;
+    public String getVinNumber() {
+        return vinNumber;
     }
 
-    public void setVIN(String VIN) {
-        this.VIN = VIN;
+    public void setVinNumber(String vinNumber) {
+        this.vinNumber = vinNumber;
     }
 
-    public LocalDateTime getInsuraceDate() {
-        return insuraceDate;
+    public LocalDate getInsuranceDate() {
+        return insuranceDate;
     }
 
-    public void setInsuraceDate(LocalDateTime insuraceDate) {
-        this.insuraceDate = insuraceDate;
+    public void setInsuranceDate(LocalDate insuranceDate) {
+        this.insuranceDate = insuranceDate;
     }
 
-    public String getTechnicalInspection() {
-        return technicalInspection;
+    public LocalDate getTechnicalInspectionDate() {
+        return technicalInspectionDate;
     }
 
-    public void setTechnicalInspection(String technicalInspection) {
-        this.technicalInspection = technicalInspection;
+    public void setTechnicalInspectionDate(LocalDate technicalInspectionDate) {
+        this.technicalInspectionDate = technicalInspectionDate;
     }
 
-    public Currency getPriceDay() {
-        return priceDay;
+    public BigDecimal getDailyPayment() {
+        return dailyPayment;
     }
 
-    public void setPriceDay(Currency priceDay) {
-        this.priceDay = priceDay;
-    }
-
-    public Currency getPriceMonth() {
-        return priceMonth;
-    }
-
-    public void setPriceMonth(Currency priceMonth) {
-        this.priceMonth = priceMonth;
+    public void setDailyPayment(BigDecimal dailyPayment) {
+        this.dailyPayment = dailyPayment;
     }
 
     public String getRate() {
@@ -141,6 +154,21 @@ public class Car {
 
     public void setRate(String rate) {
         this.rate = rate;
+    }
+
+    @Override
+    public String toString() {
+        return "id: " + id + '\n' +
+               "\tbrand: " + brand + '\n' +
+               "\tmodel: " + model + '\n' +
+               "\thorsePower: " + horsePower + '\n' +
+               "\tengineCapacity: " + engineCapacity + '\n' +
+               "\tproductionYear: " + productionYear + '\n' +
+               "\tvinNumber: " + vinNumber + '\n' +
+               "\tinsuranceDate: " + insuranceDate + '\n' +
+               "\ttechnicalInspectionDate: " + technicalInspectionDate + '\n' +
+               "\tdailyPayment: " + dailyPayment + '\n' +
+               "\trate: " + rate;
     }
 
 }

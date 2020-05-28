@@ -1,15 +1,43 @@
 package edu.wsb.students.model;
 
-import java.time.LocalDateTime;
-import java.util.Currency;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import java.time.LocalDate;
 
+@Entity
+@Table(name = "orders")
 public class Order {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private int id;
-    private LocalDateTime rentDate;
-    private Currency price;
+
+    @Column(name = "rentDate")
+    private LocalDate rentDate;
+
+    @ManyToOne
+    @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car rentalCar;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
+
+    public Order() {
+    }
+
+    public Order(LocalDate rentDate, Car rentalCar, Customer customer) {
+        this.rentDate = rentDate;
+        this.rentalCar = rentalCar;
+        this.customer = customer;
+    }
 
     public int getId() {
         return id;
@@ -19,20 +47,12 @@ public class Order {
         this.id = id;
     }
 
-    public LocalDateTime getRentDate() {
+    public LocalDate getRentDate() {
         return rentDate;
     }
 
-    public void setRentDate(LocalDateTime rentDate) {
+    public void setRentDate(LocalDate rentDate) {
         this.rentDate = rentDate;
-    }
-
-    public Currency getPrice() {
-        return price;
-    }
-
-    public void setPrice(Currency price) {
-        this.price = price;
     }
 
     public Car getRentalCar() {
@@ -49,6 +69,14 @@ public class Order {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    @Override
+    public String toString() {
+        return "id: " + id + '\n' +
+               "\trentDate: " + rentDate + '\n' +
+               "\trentalCarId: " + rentalCar.getId() + '\n' +
+               "\tcustomerId: " + customer.getId();
     }
 
 }

@@ -2,4 +2,12 @@
 /.idea/
 
 # Module file created by IntelliJ IDEA
-/DecideAndDrive.iml
+/DecideAndRide.iml
+
+# Compiled class file
+*.class
+
+# Package Files
+*.jar
+
+/target/

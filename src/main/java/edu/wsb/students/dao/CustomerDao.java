@@ -64,4 +64,34 @@ public class CustomerDao {
 		}
 	}
 
+	public boolean checkAvailableDocumentId(String documentId) {
+		List<Customer> customers = new ArrayList<>();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			session.beginTransaction();
+			customers = session.createQuery("from Customer c where c.documentId = :documentId", Customer.class).setParameter("documentId", documentId).getResultList();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return customers.isEmpty();
+	}
+
+	public boolean checkAvailableDriverLicenceId(String drivingLicenceId) {
+		List<Customer> customers = new ArrayList<>();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			session.beginTransaction();
+			customers = session.createQuery("from Customer c where c.drivingLicenceId = :drivingLicenceId", Customer.class).setParameter("drivingLicenceId", drivingLicenceId).getResultList();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return customers.isEmpty();
+	}
+
 }

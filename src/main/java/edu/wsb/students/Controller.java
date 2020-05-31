@@ -100,8 +100,7 @@ class Controller {
         System.out.print("Enter production year(int): ");
         int productionYear = Integer.parseInt(scanner.nextLine());
 
-        System.out.print("Enter vin number(string): ");
-        String vinNumber = scanner.nextLine();
+        String vinNumber = getVinNumber();
 
         System.out.print("Enter insurance date(YYYY-MM-DD): ");
         LocalDate insuranceDate = LocalDate.parse(scanner.nextLine());
@@ -124,6 +123,18 @@ class Controller {
         );
     }
 
+    private String getVinNumber() {
+        while (true) {
+            System.out.print("Enter vin number(string): ");
+            String vinNumber = scanner.nextLine();
+
+            if (carDao.checkAvailableVinNumber(vinNumber)) {
+                return vinNumber;
+            }
+            System.out.println("There are car with that vin number in system! Check number!");
+        }
+    }
+
     private void addCustomer() {
         String name, documentId, drivingLicenceId, address, phoneNumber;
         LocalDate documentExpirationDate, drivingLicenceExpirationDate, birthday;
@@ -131,14 +142,12 @@ class Controller {
         System.out.print("Enter new customer`s name: ");
         name = scanner.nextLine();
 
-        System.out.print("Enter document id: ");
-        documentId = scanner.nextLine();
+        documentId = getDocumentId();
 
         System.out.print("Enter expiration date of document(YYYY-MM-DD): ");
         documentExpirationDate = LocalDate.parse(scanner.nextLine());
 
-        System.out.print("Enter driver license id: ");
-        drivingLicenceId = scanner.nextLine();
+        drivingLicenceId = getDriverLicenseId();
 
         System.out.print("Enter expiration date of driving licence(YYYY-MM-DD): ");
         drivingLicenceExpirationDate = LocalDate.parse(scanner.nextLine());
@@ -153,6 +162,30 @@ class Controller {
         phoneNumber = scanner.nextLine();
 
         customerDao.addCustomer(new Customer(name, documentId, documentExpirationDate, drivingLicenceId, drivingLicenceExpirationDate, birthday, address, phoneNumber));
+    }
+
+    private String getDocumentId() {
+        while (true) {
+            System.out.print("Enter document id: ");
+            String documentId = scanner.nextLine();
+
+            if (customerDao.checkAvailableDocumentId(documentId)) {
+                return documentId;
+            }
+            System.out.println("There are one customer with the same document ID! Check document ID!");
+        }
+    }
+
+    private String getDriverLicenseId() {
+        while (true) {
+            System.out.print("Enter driver license id: ");
+            String driverLicenceId = scanner.nextLine();
+
+            if (customerDao.checkAvailableDriverLicenceId(driverLicenceId)) {
+                return driverLicenceId;
+            }
+            System.out.println("There are one customer with the same driver licence ID! Check driver licence ID!");
+        }
     }
 
     private void addOrder() {

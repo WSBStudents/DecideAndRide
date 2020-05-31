@@ -100,8 +100,7 @@ class Controller {
         System.out.print("Enter production year(int): ");
         int productionYear = Integer.parseInt(scanner.nextLine());
 
-        System.out.print("Enter vin number(string): ");
-        String vinNumber = scanner.nextLine();
+        String vinNumber = getVinNumber();
 
         System.out.print("Enter insurance date(YYYY-MM-DD): ");
         LocalDate insuranceDate = LocalDate.parse(scanner.nextLine());
@@ -122,6 +121,18 @@ class Controller {
                         dailyPayment, rate
                 )
         );
+    }
+
+    private String getVinNumber() {
+        while (true) {
+            System.out.print("Enter vin number(string): ");
+            String vinNumber = scanner.nextLine();
+
+            if (carDao.checkAvailableVinNumber(vinNumber)) {
+                return vinNumber;
+            }
+            System.out.println("There are car with that vin number in system! Check number!");
+        }
     }
 
     private void addCustomer() {

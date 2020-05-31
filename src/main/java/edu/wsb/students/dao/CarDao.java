@@ -65,4 +65,19 @@ public class CarDao {
 		}
 	}
 
+	public boolean checkAvailableVinNumber(String vinNumber) {
+		List<Car> cars = new ArrayList<>();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			session.beginTransaction();
+			cars = session.createQuery("from Car c where c.vinNumber = :vinNumber", Car.class).setParameter("vinNumber", vinNumber).getResultList();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+		} finally {
+			session.flush();
+			session.close();
+		}
+		return cars.isEmpty();
+	}
+
 }

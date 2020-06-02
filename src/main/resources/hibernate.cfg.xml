@@ -3,6 +3,7 @@
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
+    <!-- Konfiguracja Hibernate -->
     <session-factory>
         <property name="connection.url">jdbc:postgresql://dumbo.db.elephantsql.com/hxsbotdk</property>
         <property name="connection.driver_class">org.postgresql.Driver</property>

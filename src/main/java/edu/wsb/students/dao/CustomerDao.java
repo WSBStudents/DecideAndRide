@@ -10,13 +10,18 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+// Dao - która zawiera metody dotyczące Customera, służy do komunikacji z bazą
 public class CustomerDao {
 
+	/* Dodanie nowego Customer`a do bazy
+	 * 1. Utworzenie sesji oraz tranzakcji
+	 * 2. Save z obiektem customer oraz komit na bazie
+	 * 3. Gdy wystąpi błąd zostanie wyświetlony */
 	public void addCustomer(Customer customer) {
 		Transaction transaction = null;
 		try {
 			Session session = HibernateUtil.getSessionFactory()
-										   .openSession();
+					.openSession();
 			transaction = session.beginTransaction();
 			session.save(customer);
 			transaction.commit();
@@ -28,6 +33,10 @@ public class CustomerDao {
 		}
 	}
 
+	/* Pobieranie wszystkich Customer`ów z bazy
+	 * 1. Utworzenie sesji oraz tranzakcji
+	 * 2. Pobieranie listy klientów
+	 * 3. Gdy wystąpi błąd zostanie wyświetlony */
 	public List<Customer> getAllCustomers() {
 		List<Customer> customers = new ArrayList<>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -43,6 +52,12 @@ public class CustomerDao {
 		return customers;
 	}
 
+	/* Usunięcie Customer`a z bazy
+	 * 1. Utworzenie sesji oraz tranzakcji
+	 * 2. Pobieranie po customerId klienta z bazy
+	 * 3. Usunięcie klienta z bazy
+	 * 3. Gdy nie istnieje klienta o danym customerId lub nie zakonczył wszystkie zlecenia,
+	 *    wyświetli odpowiedni komunikat */
 	public void deleteCustomer(int customerId) {
 		Transaction transaction = null;
 		try {
@@ -64,6 +79,10 @@ public class CustomerDao {
 		}
 	}
 
+	/* Pobieranie wszystkich Customer`ów z bazy
+	 * 1. Utworzenie sesji oraz tranzakcji
+	 * 2. Pobieranie listy klientów
+	 * 3. Gdy wystąpi błąd zostanie wyświetlony */
 	public boolean checkAvailableDocumentId(String documentId) {
 		List<Customer> customers = new ArrayList<>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -79,6 +98,7 @@ public class CustomerDao {
 		return customers.isEmpty();
 	}
 
+	// Sprawdzenie czy występuje driverLicenceId w bazie
 	public boolean checkAvailableDriverLicenceId(String drivingLicenceId) {
 		List<Customer> customers = new ArrayList<>();
 		Session session = HibernateUtil.getSessionFactory().openSession();

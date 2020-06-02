@@ -10,13 +10,18 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+// Dao - która zawiera metody dotyczące Car, służy do komunikacji z bazą
 public class CarDao {
 
+	/* Dodanie nowego Car`a do bazy
+	 * 1. Utworzenie sesji oraz tranzakcji
+	 * 2. Save z obiektem customer oraz komit na bazie
+	 * 3. Gdy wystąpi błąd zostanie wyświetlony */
 	public void addCar(Car car) {
 		Transaction transaction = null;
 		try {
 			Session session = HibernateUtil.getSessionFactory()
-										   .openSession();
+					.openSession();
 			transaction = session.beginTransaction();
 			session.save(car);
 			transaction.commit();
@@ -28,6 +33,10 @@ public class CarDao {
 		}
 	}
 
+	/* Pobieranie wszystkich Car`ów z bazy
+	 * 1. Utworzenie sesji oraz tranzakcji
+	 * 2. Pobieranie listy samochodów
+	 * 3. Gdy wystąpi błąd zostanie wyświetlony */
 	public List<Car> getAllCars() {
 		List<Car> cars = new ArrayList<>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -43,6 +52,12 @@ public class CarDao {
 		return cars;
 	}
 
+	/* Usunięcie Car`a z bazy
+	 * 1. Utworzenie sesji oraz tranzakcji
+	 * 2. Pobieranie po carId car z bazy
+	 * 3. Usunięcie samochodu z bazy
+	 * 3. Gdy nie istnieje samochód o danym carId lub jeszcze jest wynajęty,
+	 *    wyświetli odpowiedni komunikat */
 	public void deleteCar(int carId) {
 		Transaction transaction = null;
 		try {
@@ -65,6 +80,7 @@ public class CarDao {
 		}
 	}
 
+	// Sprawdzenie czy występuje wpis samochodu z podanym vinNumber w bazie
 	public boolean checkAvailableVinNumber(String vinNumber) {
 		List<Car> cars = new ArrayList<>();
 		Session session = HibernateUtil.getSessionFactory().openSession();

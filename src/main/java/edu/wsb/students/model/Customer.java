@@ -8,12 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
+// Klasa modelu klienta
+// oraz adnotacje Hibernate
 @Entity
 @Table(name = "customers")
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
@@ -41,9 +43,11 @@ public class Customer {
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
+    // pusty konstruktor
     public Customer() {
     }
 
+    // konstruktor ze wszystkimi polami oprócz id(które jest generowane przez bazę).
     public Customer(String name, String documentId, LocalDate documentExpirationDate, String drivingLicenceId, LocalDate drivingLicenceExpirationDate, LocalDate birthday, String address, String phoneNumber) {
         this.name = name;
         this.documentId = documentId;
@@ -54,6 +58,8 @@ public class Customer {
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
+
+    // Getery oraz setery do każdego pola
 
     public int getId() {
         return id;
@@ -127,6 +133,7 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
+    // Nadpisana metoda toString, która wyświetla w odpowiednim formacie wszystkie dane Customer`a
     @Override
     public String toString() {
         return "id: " + id + '\n' +

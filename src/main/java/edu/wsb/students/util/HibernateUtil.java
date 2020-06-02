@@ -3,6 +3,7 @@ package edu.wsb.students.util;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+// Klasa inicjalizacji SessionFactory na podstawiepliku konfiguracyjnego hibernate.cfg.xml
 public class HibernateUtil {
     private static final SessionFactory sessionFactory = buildSessionFactory();
 

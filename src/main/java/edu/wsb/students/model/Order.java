@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
+// Klasa modelu zlecenia
+// oraz adnotacje Hibernate
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -30,14 +32,18 @@ public class Order {
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
 
+    // Pusty konstruktor
     public Order() {
     }
 
+    // Konstruktor ze wszystkimi polami oprócz id(które jest generowane przez bazę).
     public Order(LocalDate rentDate, Car rentalCar, Customer customer) {
         this.rentDate = rentDate;
         this.rentalCar = rentalCar;
         this.customer = customer;
     }
+
+    // Getery oraz setery do każdego pola
 
     public int getId() {
         return id;
@@ -71,12 +77,13 @@ public class Order {
         this.customer = customer;
     }
 
+    // Nadpisana metoda toString, która wyświetla w odpowiednim formacie wszystkie dane Order`a
     @Override
     public String toString() {
         return "id: " + id + '\n' +
-               "\trentDate: " + rentDate + '\n' +
-               "\trentalCarId: " + rentalCar.getId() + '\n' +
-               "\tcustomerId: " + customer.getId();
+                "\trentDate: " + rentDate + '\n' +
+                "\trentalCarId: " + rentalCar.getId() + '\n' +
+                "\tcustomerId: " + customer.getId();
     }
 
 }

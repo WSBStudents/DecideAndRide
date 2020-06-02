@@ -133,6 +133,7 @@ class Controller {
                         dailyPayment, rate
                 )
         );
+        System.out.println("Done!\n");
     }
 
     /* Pobieranie vinNumber oraz sprawdzenie czy występuje wpis z takim vinNumber w bazie samochodów
@@ -182,6 +183,7 @@ class Controller {
                 new Customer(name, documentId, documentExpirationDate, drivingLicenceId,
                         drivingLicenceExpirationDate, birthday, address, phoneNumber)
         );
+        System.out.println("Done!\n");
     }
 
     /* Pobieranie documentId oraz sprawdzenie czy występuje dany documentId w bazie klientów
@@ -231,6 +233,7 @@ class Controller {
         customer.setId(customerId);
 
         orderDao.addOrder(new Order(LocalDate.now(), car, customer));
+        System.out.println("Done!\n");
     }
 
     /* Wyświetlenie wszystkich samochodów
@@ -287,6 +290,7 @@ class Controller {
         carId = scanner.nextInt();
 
         carDao.deleteCar(carId);
+        System.out.println();
     }
 
     /* Usunięcie klienta z bazy
@@ -299,6 +303,7 @@ class Controller {
         customerId = scanner.nextInt();
 
         customerDao.deleteCustomer(customerId);
+        System.out.println();
     }
 
     /* Usunięcie zlecenia z bazy
@@ -310,6 +315,11 @@ class Controller {
         orderId = scanner.nextInt();
 
         Order order = orderDao.getOrderById(orderId);
+
+        if (order == null) {
+            System.out.println("There are no any order with that ID! Check order ID!");
+            return;
+        }
         Car rentalCar = order.getRentalCar();
 
         BigDecimal price = rentalCar.getDailyPayment();
@@ -321,6 +331,7 @@ class Controller {
         System.out.println("To pay: " + total);
 
         orderDao.deleteOrder(orderId);
+        System.out.println();
     }
 
 }

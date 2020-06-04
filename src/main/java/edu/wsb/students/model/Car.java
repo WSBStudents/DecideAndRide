@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+// Klasa modelu samochodu
+// oraz adnotacje Hibernate
 @Entity
 @Table(name = "cars")
 public class Car {
@@ -48,9 +50,11 @@ public class Car {
     @Column(name = "rate")
     private String rate;
 
+    // Pusty konstruktor
     public Car() {
     }
 
+    // Konstruktor ze wszystkimi polami oprócz id(które jest generowane przez bazę).
     public Car(String brand, String model, int horsePower,
                String engineCapacity, int productionYear,
                String vinNumber, LocalDate insuranceDate,
@@ -67,6 +71,8 @@ public class Car {
         this.dailyPayment = dailyPayment;
         this.rate = rate;
     }
+
+    // Getery oraz setery do każdego pola
 
     public int getId() {
         return id;
@@ -156,19 +162,20 @@ public class Car {
         this.rate = rate;
     }
 
+    // Nadpisana metoda toString, która wyświetla w odpowiednim formacie wszystkie dane Car`a
     @Override
     public String toString() {
         return "id: " + id + '\n' +
-               "\tbrand: " + brand + '\n' +
-               "\tmodel: " + model + '\n' +
-               "\thorsePower: " + horsePower + '\n' +
-               "\tengineCapacity: " + engineCapacity + '\n' +
-               "\tproductionYear: " + productionYear + '\n' +
-               "\tvinNumber: " + vinNumber + '\n' +
-               "\tinsuranceDate: " + insuranceDate + '\n' +
-               "\ttechnicalInspectionDate: " + technicalInspectionDate + '\n' +
-               "\tdailyPayment: " + dailyPayment + '\n' +
-               "\trate: " + rate;
+                "\tbrand: " + brand + '\n' +
+                "\tmodel: " + model + '\n' +
+                "\thorsePower: " + horsePower + '\n' +
+                "\tengineCapacity: " + engineCapacity + '\n' +
+                "\tproductionYear: " + productionYear + '\n' +
+                "\tvinNumber: " + vinNumber + '\n' +
+                "\tinsuranceDate: " + insuranceDate + '\n' +
+                "\ttechnicalInspectionDate: " + technicalInspectionDate + '\n' +
+                "\tdailyPayment: " + dailyPayment + '\n' +
+                "\trate: " + rate;
     }
 
 }

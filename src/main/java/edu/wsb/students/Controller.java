@@ -15,14 +15,20 @@ import java.util.Scanner;
 
 class Controller {
 
+    // Pola Dao(klas do komunikacji z bazą)
     private CarDao carDao = new CarDao();
     private CustomerDao customerDao = new CustomerDao();
     private OrderDao orderDao = new OrderDao();
 
+    // Główna flaga
+    // Gdy będzie false, program zakończy działanie
     private boolean doAction = true;
 
+    // Scanner - służy do pobrania informacji
     private Scanner scanner;
 
+    // Główna pętla z odpaleniem metody, która wyświetla podstawowe informacji
+    // oraz metody która pobiera wybór akcji od użytkownika
     void start() {
         while (doAction) {
             writeHelpText();
@@ -30,6 +36,7 @@ class Controller {
         }
     }
 
+    // Wyświetlenie wszystkich możliwych opcji sterowania
     private void writeHelpText() {
         System.out.println("Enter number:");
         System.out.println("1 - add new car");
@@ -44,6 +51,8 @@ class Controller {
         System.out.println("0 - exit\n");
     }
 
+    // Pobieranie akcji od użytkownika oraz wywołanie odpowiedniej metody
+    // Jeżeli użytkownik wybierze 0, flaga doAction = false i zakończy się główna pętla
     private void doAction() {
         System.out.print("Enter option: ");
 
@@ -84,6 +93,9 @@ class Controller {
         }
     }
 
+    /* Dodanie samochodu
+     * 1. Pobranie odpowiednich informacji o samochodzie
+     * 2. Tworzenie obiektu Car i przekazanie go do metody CarDao */
     private void addCar() {
         System.out.print("Enter brand of car(string): ");
         String brand = scanner.nextLine();
@@ -121,8 +133,11 @@ class Controller {
                         dailyPayment, rate
                 )
         );
+        System.out.println("Done!\n");
     }
 
+    /* Pobieranie vinNumber oraz sprawdzenie czy występuje wpis z takim vinNumber w bazie samochodów
+     * Jeżeli występuje informowanie użytkownika oraz pobieranie jeszcze raz */
     private String getVinNumber() {
         while (true) {
             System.out.print("Enter vin number(string): ");
@@ -135,6 +150,9 @@ class Controller {
         }
     }
 
+    /* Dodanie nowego klienta
+     * 1. Pobieranie danych od użytkownika
+     * 2. Tworzenie obiektu Customer i przekazanie go do metody CustomerDao */
     private void addCustomer() {
         String name, documentId, drivingLicenceId, address, phoneNumber;
         LocalDate documentExpirationDate, drivingLicenceExpirationDate, birthday;
@@ -161,9 +179,15 @@ class Controller {
         System.out.print("Enter phone number: ");
         phoneNumber = scanner.nextLine();
 
-        customerDao.addCustomer(new Customer(name, documentId, documentExpirationDate, drivingLicenceId, drivingLicenceExpirationDate, birthday, address, phoneNumber));
+        customerDao.addCustomer(
+                new Customer(name, documentId, documentExpirationDate, drivingLicenceId,
+                        drivingLicenceExpirationDate, birthday, address, phoneNumber)
+        );
+        System.out.println("Done!\n");
     }
 
+    /* Pobieranie documentId oraz sprawdzenie czy występuje dany documentId w bazie klientów
+     * Jeżeli występuje informowanie użytkownika oraz pobieranie jeszcze raz */
     private String getDocumentId() {
         while (true) {
             System.out.print("Enter document id: ");
@@ -176,6 +200,8 @@ class Controller {
         }
     }
 
+    /* Pobieranie licenceId oraz sprawdzenie czy występuje dany licenceId w bazie klientów
+     * Jeżeli występuje informowanie użytkownika oraz pobieranie jeszcze raz */
     private String getDriverLicenseId() {
         while (true) {
             System.out.print("Enter driver license id: ");
@@ -188,6 +214,9 @@ class Controller {
         }
     }
 
+    /* Dodanie nowego zlecenia
+     * 1. Pobieranie danych od zleceniu
+     * 2. Tworzenie obiektu Order i przekazanie go do metody OrderDao */
     private void addOrder() {
         int customerId, carId;
 
@@ -204,8 +233,13 @@ class Controller {
         customer.setId(customerId);
 
         orderDao.addOrder(new Order(LocalDate.now(), car, customer));
+        System.out.println("Done!\n");
     }
 
+    /* Wyświetlenie wszystkich samochodów
+     * 1. Pobieranie wszystkich samochodów z bazy
+     * 2. Jeżeli niema - wyświetlenie odpowiedniego komunikatu
+     * 3. Jeżeli są - iteracja i wywołanie nadpisanej metody toString() */
     private void getAllCars() {
         List<Car> cars = carDao.getAllCars();
         if (cars.isEmpty()) {
@@ -218,6 +252,10 @@ class Controller {
         }
     }
 
+    /* Wyświetlenie wszystkich klientów
+     * 1. Pobieranie wszystkich klientów z bazy
+     * 2. Jeżeli niema - wyświetlenie odpowiedniego komunikatu
+     * 3. Jeżeli są - iteracja i wywołanie nadpisanej metody toString() */
     private void getAllCustomers() {
         List<Customer> customers = customerDao.getAllCustomers();
         if (customers.isEmpty()) {
@@ -228,6 +266,10 @@ class Controller {
         }
     }
 
+    /* Wyświetlenie wszystkich zleceń
+     * 1. Pobieranie wszystkich zleceń z bazy
+     * 2. Jeżeli niema - wyświetlenie odpowiedniego komunikatu
+     * 3. Jeżeli są - iteracja i wywołanie nadpisanej metody toString() */
     private void getAllOrders() {
         List<Order> orders = orderDao.getAllOrders();
         if (orders.isEmpty()) {
@@ -238,6 +280,9 @@ class Controller {
         }
     }
 
+    /* Usunięcie samochodu z bazy
+     * 1. Pobranie odpowiedniego carId od użytkownika
+     * 2. Usuwanie samochodu z bazy */
     private void deleteCar() {
         int carId;
 
@@ -245,8 +290,12 @@ class Controller {
         carId = scanner.nextInt();
 
         carDao.deleteCar(carId);
+        System.out.println();
     }
 
+    /* Usunięcie klienta z bazy
+     * 1. Pobranie odpowiedniego customerId od użytkownika
+     * 2. Usuwanie klienta z bazy */
     private void deleteCustomer() {
         int customerId;
 
@@ -254,14 +303,23 @@ class Controller {
         customerId = scanner.nextInt();
 
         customerDao.deleteCustomer(customerId);
+        System.out.println();
     }
 
+    /* Usunięcie zlecenia z bazy
+     * 1. Pobranie odpowiedniego orderId od użytkownika
+     * 2. Usuwanie zlecenia z bazy */
     private void deleteOrder() {
         int orderId;
         System.out.print("Enter order id: ");
         orderId = scanner.nextInt();
 
         Order order = orderDao.getOrderById(orderId);
+
+        if (order == null) {
+            System.out.println("There are no any order with that ID! Check order ID!");
+            return;
+        }
         Car rentalCar = order.getRentalCar();
 
         BigDecimal price = rentalCar.getDailyPayment();
@@ -273,6 +331,7 @@ class Controller {
         System.out.println("To pay: " + total);
 
         orderDao.deleteOrder(orderId);
+        System.out.println();
     }
 
 }
